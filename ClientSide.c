@@ -3,7 +3,9 @@
 /* Socket Program: Client Side */
 /*
  * Web Crawler..
- *
+
+It parses the links once which are extracted from the downloaded page..
+	
  * */
 
 
@@ -114,30 +116,9 @@ void getUrl(char arrr[])
 
 
 
-void create(char t[])
-{
-	int len=strlen(t);
-	while(q!=len){
-	arr_link[Link_i]=t[q];
-	q++;
-	Link_i++;
-	}
-	arr_link[Link_i]='\0';
-}
-
-
-void disp()
-{
-	printf("\n List\n ");
-	int d=0;
-	while(d!=Link_i)
-	{
-		printf("%c",arr_link[d]);
-		d++;
-	}
-}
-
-
+/* Extra the links from the downloaded page and list all the LINKS.. 
+Write those LINKS into a file.
+*/
 void links()
 {
 	FILE *fp;
@@ -218,7 +199,7 @@ if( Serv_reply[i-1] == pattern[j-1] && Serv_reply[i] == pattern[j] && Serv_reply
 		printf("\nLink Count=%2d",link_count);	
 }
 
-
+/* Verification purpose display function is used..*/
 void display(char arr[])
 {
         for(int i = 0; i < strlen(arr); ++i)
@@ -254,6 +235,7 @@ int main()
         char line[LSIZ][RSIZ];
 	int presv;
 
+/*Get the Links from the file..*/
 while(fgets(line[iin], LSIZ, fp))
 {
                                 line[iin][strlen(line[iin]) - 1] = '\0';
@@ -277,69 +259,5 @@ while(fgets(line[iin], LSIZ, fp))
 }
 
 
-/*
-void get2Url()
-{
-	char c[1000];
-	FILE *fptr;
-    if ((fptr = fopen("links.txt", "r")) == NULL)
-    {
-        printf("Error! opening file");
-        exit(1);
-    }
 
-        char *line=NULL;
-        size_t len=0;
-        ssize_t read;
-
-    // reads text until newline is encountered
-    while((read=getline(&line,&len,fptr))!=-1 )
-    {
-        fscanf(fptr, "%[^\n]", c);
-        printf("%s\n", c);
-        int i=0;
-        while(c[i]!='/')
-        {
-                i++;
-        }   
-        i=i+2;
-        while(c[i]!='/')
-        {
-                printf("%c",c[i]);i++;
-        }
-        //printf("\n");
-
-           }
-                int ik=0;
-                while(ik!=strlen(c))
-                {
-                        url[ik]=c[ik];
-                        ik++;
-                }
-                url[ik-1]='\0';
-                struct hostent *ghbn=gethostbyname(url);
-                if(ghbn==NULL)
-                {
-                        perror("Error:");
-                        printf("%s",hstrerror(h_errno));
-
-		}
-		else
-  		{
-                        printf("Host Name->%s\n", ghbn->h_name);
-                        printf("IP ADDRESS->%s\n",inet_ntoa(*(struct in_addr *)ghbn->h_addr_list[0]));
-                        ip=inet_ntoa(*(struct in_addr *)ghbn->h_addr_list[0]);
-                }
-        }
-        fclose(fp);
-
-	CreateSocket();
-        size=recv(sock,Serv_reply,20000,0);
-	Download_page();
-	printf("\nLinks::\n\n");
-	links();
-	printf("\n\n%s",Get_buffer);
-}
-
-*/
 
